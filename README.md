@@ -9,12 +9,16 @@ CurrencyConvert automatically caches the exchange rate for two hours, it will pu
 ```javascript
 // Promise
 CurrencyConverter(1, "usd", "jpy").then((result) => {
-    // Do something with it.
+    // ...
     console.log(result);
 }).catch(console.error);
 
 // Await
-const result = await CurrencyConverter(1, "usd", "jpy");
+try {
+    const result = await CurrencyConverter(1, "usd", "jpy");
+} catch (err) {
+    console.error(err);
+}
 ```
 
 ## Adding it to your project
