@@ -1,6 +1,11 @@
+// Written like this to help prevent tampering with internal things.
+// Also has the side effect of *almost* being compatible with JDK Nashorn.
 
-const CurrencyConverter = (() => {
-    const base = "USD";
+const CurrencyConverterVersion = "1.0.0";
+
+const CurrencyConverter = (function () {
+    const base = "USD"; // TODO: Make this configurable by the end user, perhaps a class?
+
     const apiEndpoint = "https://api.exchangeratesapi.io/latest?symbols=" + base + "&base=";
     const refreshRate = ((2 * 60) * 60) * 1000; // 2 hours
 
@@ -45,7 +50,7 @@ const CurrencyConverter = (() => {
         }
     }
 
-    return (amount, from, to) => {
+    return (function (amount, from, to) {
         return new Promise(async (resolve, reject) => {
             validateType(amount, "amount", "number");
             validateType(from, "from", "string");
@@ -67,5 +72,5 @@ const CurrencyConverter = (() => {
                 reject(e);
             }
         });
-    };
-})();
+    });
+})(); // We evaluate here.
