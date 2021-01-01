@@ -1,7 +1,7 @@
 // Written like this to help prevent tampering with internal things.
 // Also has the side effect of *almost* being compatible with JDK Nashorn.
 
-const CurrencyConverterVersion = "1.0.0";
+const CurrencyConverterVersion = "1.0.1";
 
 const CurrencyConverter = (function () {
     const base = "USD"; // TODO: Make this configurable by the end user, perhaps a class?
@@ -61,7 +61,7 @@ const CurrencyConverter = (function () {
 
             try {
                 if (from === to) {
-                    return amount;
+                    resolve(amount);
                 } else {
                     const rateToBase = await getConversionRate(from);
                     const rateToTarget = await getConversionRate(to);
